@@ -183,22 +183,15 @@ If you use or build upon this work, please cite:
 
 ## References
 
-1. Master RJ, Karmakar J, et al. High potency 3-carboxy-2-methylbenzofuran
-   pendrin inhibitors as novel diuretics. *Eur J Med Chem* 283, 117133 (2025).
+1. Master, R. J.; Karmakar, J.; Haggie, P. M.; Anthony-Tan, J.; Chu, T.; Verkman, A. S.; Anderson, M. O.; Cil, O. High Potency 3-Carboxy-2-Methylbenzofuran Pendrin Inhibitors as Novel Diuretics. *Eur. J. Med. Chem.* **2025**, 283, 117133.
 
-2. Haggie PM, et al. Inhibitors of pendrin anion exchange identified in a
-   small molecule screen increase airway surface liquid volume in cystic
-   fibrosis. *FASEB J* 30, 2187–2197 (2016).
+2. Haggie, P. M.; Phuan, P.-W.; Tan, J.-A.; Zlock, L.; Finkbeiner, W. E.; Verkman, A. S. Inhibitors of Pendrin Anion Exchange Identified in a Small Molecule Screen Increase Airway Surface Liquid Volume in Cystic      Fibrosis. *FASEB J.* **2016**, 30, 2187–2197.
 
-3. Zhu J, et al. Synthesis and evaluation of tetrahydropyrazolopyridine
-   inhibitors of SLC26A4 (pendrin). *Bioorg Med Chem Lett* 29 (2019).
+3. Zhu, J. S.; Lu, J. Y.; Tan, J.-A.; Rivera, A. A.; Phuan, P.-W.; Shatskikh, M. E.; Son, J.-H.; Haggie, P. M.; Verkman, A. S.; Kurth, M. J. Synthesis and Evaluation of Tetrahydropyrazolopyridine Inhibitors of        SLC26A4 (Pendrin). *Bioorg. Med. Chem. Lett.* **2019**, 29, 126699.
 
-4. Park J, et al. Novel pendrin inhibitor attenuates airway
-   hyperresponsiveness in experimental murine asthma.
-   *J Allergy Clin Immunol* 144, 1425–1428 (2019).
+4. Park, J.; Lee, H. J.; Song, D.; Gi, M.; Jo, S.; Jeon, D.-K.; Seo, Y.; Kim, B.; Lee, H.; Namkung, W.; Han, G.; Choi, J. Y. Novel Pendrin Inhibitor Attenuates Airway Hyperresponsiveness and Mucin Expression in       Experimental Murine Asthma. *J. Allergy Clin. Immunol.* **2019**, 144, 1425–1428.
 
-5. Wang L, et al. Mechanism of anion exchange and small-molecule
-   inhibition of pendrin. *Nat Commun* 15, 346 (2024).
+5. Wang, L.; Hoang, A.; Gil-Iturbe, E.; Laganowsky, A.; Quick, M.; Zhou, M. Mechanism of Anion Exchange and Small-Molecule Inhibition of Pendrin. *Nat. Commun.* **2024**, 15, 346.
 
 ---
 
