@@ -175,10 +175,11 @@ Scroll to the `csv_data` block in the notebook and add a row: MyCompound,CC1=C(C
 If you use or build upon this work, please cite:
 
 > Karmakar, J. (2026). *pendrin-qsar: RDKit + ML pipeline for
-> SLC26A4 inhibitors* (v5.0).
+> SLC26A4 inhibitors*
 > 
-> GitHub. https://github.com/drjoykarmakar/pendrin-qsar
-
+> Zenodo. https://doi.org/10.5281/zenodo.19534441
+        
+        
 ---
 
 ## References
