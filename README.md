@@ -176,6 +176,7 @@ If you use or build upon this work, please cite:
 
 > Karmakar, J. (2026). *pendrin-qsar: RDKit + ML pipeline for
 > SLC26A4 inhibitors* (v5.0).
+> 
 > GitHub. https://github.com/drjoykarmakar/pendrin-qsar
 
 ---
