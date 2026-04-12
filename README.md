@@ -113,19 +113,6 @@ All SMILES manually verified against primary literature and ChEMBL.
 | Oxazolone | 1 | 4.7 µM (YS-01) | Park et al. *J Allergy Clin Immunol* 2019 |
 | Niflumic acid | 1 | 15.5 µM (NFA) | Wang et al. *Nat Commun* 2024 |
 
-### Data quality fixes (vs original dataset)
-
-| # | Issue | Fix |
-|---|---|---|
-| 1 | PDSinh-A01 was wrong molecule (anthranilic acid) | Corrected to tetrahydropyrazolopyridine (ChEMBL + Haggie 2016 Fig 1C) |
-| 2 | PDSinh-C01 was wrong molecule (pyrazolothiophene urea) | Corrected to pyrazolothiophenesulfonamide (ChEMBL + Haggie 2016 Fig 1C) |
-| 3 | 1g SMILES duplicate of 1c | Fixed to 2,3-dichloro regioisomer |
-| 4 | NFA SMILES had benzene ring | Corrected to pyridine (true niflumic acid) |
-| 5 | NFA IC50 = 15.0 µM | Updated to 15.5 µM (Wang 2024) |
-| 6 | Zhu-17/19/22 identical SMILES | Averaged IC50; flagged as unresolved stereo |
-| 7 | Morgan FP deprecated API | Updated to rdFingerprintGenerator |
-| 8 | Random 70/30 split on n=13 | Replaced with LOO-CV |
-
 ---
 
 ## Methods
