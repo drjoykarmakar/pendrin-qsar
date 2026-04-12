@@ -13,7 +13,7 @@
 ## What this is
 
 An open-source cheminformatics and machine learning pipeline for
-**pendrin (SLC26A4) inhibitors** — a validated drug target for
+**Pendrin (SLC26A4) inhibitors** — a validated drug target for
 edema, hypertension, cystic fibrosis, and asthma.
 
 Covers the full QSAR workflow: data curation → feature engineering →
