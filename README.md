@@ -2,7 +2,7 @@
 
 **Author:** Dr. Joy Karmakar  
 **Date:** April 2026  
-**Version:** 5.0 (Final)  
+**Version:** 5.0 
 **Status:** Proof-of-concept | Actively expanding dataset
 
 ---
