@@ -1,128 +1,155 @@
 # Pendrin (SLC26A4) QSAR Pipeline
 
 **Author:** Dr. Joy Karmakar  
-**Date:** April 2026  
-**Version:** 5.0 
-**Status:** Proof-of-concept | Actively expanding dataset
-
----
-
-## Run instantly in Google Colab — no installation needed
+**Date:** April 2026 | **Version:** 5.0
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/drjoykarmakar/pendrin-qsar/blob/main/pendrin-qsar.ipynb)
-
-Click the badge → Runtime → Run all → done in ~90 seconds.  
-Generates 6 publication figures + 2 CSV files automatically.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
+[![RDKit](https://img.shields.io/badge/RDKit-2024-green.svg)](https://www.rdkit.org)
 
 ---
 
 ## What this is
 
 An open-source cheminformatics and machine learning pipeline for
-**pendrin (SLC26A4) inhibitors** — a validated drug target for:
+**pendrin (SLC26A4) inhibitors** — a validated drug target for
+edema, hypertension, cystic fibrosis, and asthma.
 
-- Edema and diuretic resistance
-- Hypertension
-- Cystic fibrosis
-- Asthma and inflammatory lung diseases
+Covers the full QSAR workflow: data curation → feature engineering →
+model training → rigorous validation → applicability domain →
+conformal prediction → virtual screening.
 
-The pipeline covers the full QSAR workflow: data curation,
-feature engineering, model training, rigorous validation,
-applicability domain analysis, conformal prediction, and
-virtual screening of novel analogs.
+---
+
+## Run instantly — no installation needed
+
+Click the Colab badge above → **Runtime → Run all** → done in ~90 seconds.  
+Generates 6 publication figures + 2 CSV files automatically.
+
+---
+
+## Results at a glance
+
+### Figure 1 — Chemical Space
+
+![Chemical Space](fig1_chemical_space.png)
+
+*MW, LogP and TPSA plotted against pIC50, coloured by scaffold class.
+Benzofurans (blue) cluster tightly. No single descriptor drives potency —
+justifying the need for fingerprint-based ML.*
+
+---
+
+### Figure 2 — LOO-CV Model Performance
+
+![QSAR Scatter](fig2_qsar_scatter.png)
+
+*Leave-One-Out Cross-Validation predicted vs experimental pIC50 for all
+4 models. Q² < 0 is expected and honest at n=16 with 1.5 log units of
+activity range. Models are proof-of-concept; ≥50 compounds needed for
+predictive QSAR.*
+
+---
+
+### Figure 3 — Descriptor Analysis
+
+![Descriptor Analysis](fig3_descriptor_analysis.png)
+
+*Left: Random Forest feature importance for 11 physicochemical
+descriptors. QED, MolMR and LogP contribute most.
+Right: Descriptor–pIC50 correlation heatmap — no single descriptor
+correlates significantly with activity (all p > 0.05).*
+
+---
+
+### Figure 4 — Activity Distribution
+
+![Activity Distribution](fig4_activity_distribution.png)
+
+*Left: All 16 compounds ranked by potency with IC50 labels.
+Right: pIC50 by scaffold class — benzofurans span the widest range
+(0.48–8.2 µM), confirming substituent pattern matters greatly.*
+
+---
+
+### Figure 5 — Model Validation
+
+![Validation](fig5_validation.png)
+
+*Left: Y-scrambling histogram (n=50 permutations). Real model Q²=−0.100
+lies below the 95th percentile of scrambled models — no chance
+correlation.  
+Right: Williams plot (applicability domain). All 16 compounds have
+leverage h < h\*=2.250 and |standardized residual| < 3 — all
+predictions are within the reliable domain.*
+
+---
+
+### Figure 6 — Virtual Screening
+
+![Virtual Screening](fig6_virtual_screening.png)
+
+*Left: 13 novel benzofuran analogs ranked by predicted pIC50 with 80%
+conformal prediction intervals.  
+Right: Potency vs novelty — compounds upper-right are both more potent
+and more novel.  
+**Top hit: V-2F4Cl** (2-fluoro, 4-chloro benzyl) — predicted IC50 =
+0.86 µM, Tanimoto similarity to lead 1d = 0.804.*
 
 ---
 
 ## Dataset
 
-**18 raw entries → 16 unique structures** after canonical SMILES
-deduplication. All SMILES were manually verified and corrected
-against primary literature and ChEMBL.
+**18 raw entries → 16 unique structures** across 6 scaffold classes.
+All SMILES manually verified against primary literature and ChEMBL.
 
-| Scaffold Class | n | Best IC50 | Source |
+| Scaffold | n | Best IC50 | Reference |
 |---|---|---|---|
-| Benzofuran | 10 | 0.48 µM (1d) | Master et al. *Eur J Med Chem* 2025 |
+| Benzofuran | 10 | **0.48 µM** (1d) | Master et al. *Eur J Med Chem* 2025 |
 | Pyrazolopyridine | 2 | 3.3 µM (Zhu-18) | Zhu et al. *Bioorg Med Chem Lett* 2019 |
 | Tetrahydropyrazolopyridine | 1 | 2.5 µM (PDSinh-A01) | Haggie et al. *FASEB J* 2016 |
 | Pyrazolothiophenesulfonamide | 1 | 1.8 µM (PDSinh-C01) | Haggie et al. *FASEB J* 2016 |
 | Oxazolone | 1 | 4.7 µM (YS-01) | Park et al. *J Allergy Clin Immunol* 2019 |
 | Niflumic acid | 1 | 15.5 µM (NFA) | Wang et al. *Nat Commun* 2024 |
 
+### Data quality fixes (vs original dataset)
+
+| # | Issue | Fix |
+|---|---|---|
+| 1 | PDSinh-A01 was wrong molecule (anthranilic acid) | Corrected to tetrahydropyrazolopyridine (ChEMBL + Haggie 2016 Fig 1C) |
+| 2 | PDSinh-C01 was wrong molecule (pyrazolothiophene urea) | Corrected to pyrazolothiophenesulfonamide (ChEMBL + Haggie 2016 Fig 1C) |
+| 3 | 1g SMILES duplicate of 1c | Fixed to 2,3-dichloro regioisomer |
+| 4 | NFA SMILES had benzene ring | Corrected to pyridine (true niflumic acid) |
+| 5 | NFA IC50 = 15.0 µM | Updated to 15.5 µM (Wang 2024) |
+| 6 | Zhu-17/19/22 identical SMILES | Averaged IC50; flagged as unresolved stereo |
+| 7 | Morgan FP deprecated API | Updated to rdFingerprintGenerator |
+| 8 | Random 70/30 split on n=13 | Replaced with LOO-CV |
+
 ---
 
 ## Methods
 
 ### Features
-- **11 physicochemical descriptors** via RDKit: MW, LogP, TPSA, HBD,
+- **11 physicochemical descriptors** (RDKit): MW, LogP, TPSA, HBD,
   HBA, RotB, QED, ArRings, HeavyAtoms, FractionCSP3, MolMR
-- **ECFP4 Morgan fingerprints** (radius=2, 2048 bits)
-  via `rdFingerprintGenerator` (current RDKit API)
+- **ECFP4 fingerprints** — radius=2, 2048 bits
 
-### Models
-| Model | Feature set | Notes |
-|---|---|---|
-| Random Forest | Descriptors + FP | 500 trees, sqrt features |
-| XGBoost | Descriptors + FP | 300 estimators, lr=0.05, depth=3 |
-| Ridge Regression | Descriptors + FP | alpha=10, StandardScaler |
-| PLS Regression | Descriptors only | n=2 components; best for small n |
+### Models & Validation
 
-### Validation
-- **LOO-CV** (Leave-One-Out Cross-Validation) — appropriate for n < 20;
-  random train/test split not used
-- **Y-scrambling** (n=50 permutations) — confirms no chance correlation
-- **Scaffold-based external validation** — benzofurans as training set,
-  non-benzofurans as external test set
-- **Applicability Domain** — Williams plot (leverage vs standardized residuals)
-- **Conformal prediction** — 80% and 90% prediction intervals per compound
-
----
-
-## Results
-
-### LOO-CV performance
-
-| Model | Q² | RMSE | MAE | Pearson r |
+| Model | Q² (LOO) | RMSE | MAE | Pearson r |
 |---|---|---|---|---|
 | Random Forest | −0.100 | 0.435 | 0.330 | +0.009 |
 | XGBoost | −0.392 | 0.490 | 0.360 | +0.151 |
-| Ridge | −0.132 | 0.442 | 0.325 | +0.149 |
+| Ridge Regression | −0.132 | 0.442 | 0.325 | +0.149 |
 | PLS (n=2) | −0.468 | 0.503 | 0.448 | −0.163 |
 
-**Q² < 0 is expected** with n=16 and only 1.5 log units of activity
-range. These models are proof-of-concept; ≥50 compounds are needed
-for predictive QSAR.
-
-### Validation summary
-
-| Test | Result | Interpretation |
-|---|---|---|
-| Y-scrambling | Real Q²=−0.100 vs 95th pct=+0.071 | No chance correlation confirmed |
-| Scaffold split | External Q²=−0.779, RMSE=0.393 | PDSinh-A01 predicted with error=0.001 |
-| Applicability Domain | All 16 compounds within AD (h < 2.250) | All predictions trustworthy |
-| Conformal prediction | 80% CI = ±0.698 pIC50 (≈5× in IC50) | Quantified uncertainty per compound |
-
-### Virtual screening
-
-13 novel benzofuran analogs were screened using the trained RF model
-with 80% conformal prediction intervals and Lipinski Ro5 + Veber
-drug-likeness filters.
-
-**Top predicted analog: V-2F4Cl** (2-fluoro, 4-chloro benzyl)  
-Predicted IC50 = **0.86 µM** [CI80%: 0.43–1.73 µM]  
-Tanimoto similarity to 1d = 0.804
-
----
-
-## Figures
-
-| Figure | Description |
+| Validation | Result |
 |---|---|
-| `fig1_chemical_space.png` | MW, LogP, TPSA vs pIC50 coloured by scaffold class |
-| `fig2_qsar_scatter.png` | LOO-CV predicted vs experimental pIC50 (4 models) |
-| `fig3_descriptor_analysis.png` | RF feature importance + descriptor correlation heatmap |
-| `fig4_activity_distribution.png` | Potency ranking + scaffold class comparison |
-| `fig5_validation.png` | Y-scrambling histogram + Williams plot (AD) |
-| `fig6_virtual_screening.png` | Virtual library ranked by predicted potency + novelty plot |
+| Y-scrambling (n=50) | No chance correlation (real Q² below 95th pct) |
+| Scaffold-based split | External Q²=−0.779, RMSE=0.393 |
+| Applicability Domain | All 16 compounds within AD (h < 2.250) |
+| Conformal prediction | 80% CI = ±0.698 pIC50 (≈5× in IC50) |
 
 ---
 
@@ -131,9 +158,9 @@ Tanimoto similarity to 1d = 0.804
 | File | Description |
 |---|---|
 | `pendrin-qsar.ipynb` | Full Colab notebook |
-| `pendrin_inhibitors.csv` | Raw curated dataset (18 entries) |
-| `pendrin_compound_table_pub.csv` | Publication table with all descriptors |
-| `virtual_screening_results.csv` | 13 virtual analogs with predicted IC50 and CI |
+| `pendrin_inhibitors.csv` | Curated dataset (18 entries, corrected) |
+| `pendrin_compound_table_pub.csv` | Publication table with descriptors |
+| `virtual_screening_results.csv` | 13 virtual analogs with predicted IC50 |
 | `fig1–fig6.png` | All figures at 300 dpi |
 | `LICENSE` | MIT License |
 
@@ -141,11 +168,8 @@ Tanimoto similarity to 1d = 0.804
 
 ## How to add your own compound
 
-After running the notebook, scroll to the `csv_data` block and add
-a new row: MyCompound,CC1=C(C(=O)O)c2cc(OCc3...),2.0,My Lab 2026,Benzofuran
+Scroll to the `csv_data` block in the notebook and add a row: MyCompound,CC1=C(C(=O)O)c2cc(OCc3...your SMILES...)ccc2O1,2.0,My Lab 2026,Benzofuran
 
-Then Runtime → Run all. The new compound will appear in all
-figures and the virtual screening comparison.
 
 ---
 
